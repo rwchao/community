@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class AuthorizeController {
     @Autowired
@@ -23,7 +25,8 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
-                           @RequestParam(name = "state") String state){
+                           @RequestParam(name = "state") String state,
+                           HttpServletRequest request){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -32,9 +35,16 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser user = githubProvider.getUser(accessToken);
-        System.out.println(user.getName());
-//        System.out.println(user.getId());
-//        System.out.println(user.getBio());
-        return "index";
+//        System.out.println(user.getName());
+        if(user != null){
+            //登录成功,写入cookie和session
+            request.getSession().setAttribute("user", user);
+            //如果只是return "index"的话，就不会把改变地址，只是加载index页面，redirect的话就地址也会改变
+            //redirect：后面是url地址，不是视图，所以把index改成/
+            return "redirect:/";
+        }else{
+            //登录失败，重新登录
+            return "redirect:/";
+        }
     }
 }
