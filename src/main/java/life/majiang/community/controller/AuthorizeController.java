@@ -42,8 +42,9 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
+//        System.out.println(accessToken);
         GithubUser githubUser = githubProvider.getUser(accessToken);
-//        System.out.println(user.getName());
+//        System.out.println(githubUser);
         if(githubUser != null){
             //登录成功,写入cookie和session
             User user = new User();
@@ -51,14 +52,16 @@ public class AuthorizeController {
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModify(user.getGmtCreate());
+            user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
             request.getSession().setAttribute("user", githubUser);
+            System.out.println("登录成功");
             //如果只是return "index"的话，就不会把改变地址，只是加载index页面，redirect的话就地址也会改变
             //redirect：后面是url地址，不是视图，所以把index改成/
             return "redirect:/";
         }else{
             //登录失败，重新登录
+            System.out.println("登录失败");
             return "redirect:/";
         }
     }
