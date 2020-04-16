@@ -24,7 +24,7 @@ public class GithubProvider {
             String string = response.body().string();
             //先调试看到string的格式，再用合适的方式从中提取信息
             String token = string.split("&")[0].split("=")[1];
-            System.out.println(string);
+//            System.out.println(string);
 //            System.out.println(token);
             return token;
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class GithubProvider {
 
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
-            System.out.println(string);
+//            System.out.println(string);
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             return githubUser;
         }catch (IOException e) {
