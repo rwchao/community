@@ -8,3 +8,8 @@ p12
   ![](.mylog_images/chorme-access_token-errro.png)
 - user.getname()返回null,而将user的string信息打印也只得到下面信息[已解决]
   ![](.mylog_images/user-string.png)
+
+p19:flyway
+- mvn flyway:migrate之后出现错误 ` General error: "java.lang.IllegalStateException: 
+Unable to read the page`
+![](.myLog_images/flyway-error.png)

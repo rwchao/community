@@ -12,7 +12,7 @@
 [H2](https://www.h2database.com/html/main.html)  
 [MyBatis](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)  
 [Spring Boot文档 database部分](https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/boot-features-sql.html#boot-features-embedded-database-support)  
-
+[Flyway](https://flywaydb.org/getstarted/firststeps/maven)  
 
 ## 工具
 Git  
@@ -31,6 +31,7 @@ create table USER
 	constraint USER_PK
 		primary key (ID)
 );
-
-
+```
+```bash
+mvn flyway:migrate
 ```
