@@ -21,6 +21,8 @@ p21
 用 `th:text="${}"` 呢  
 Q:因为 title 和 tag 都是 input标签 ，而 description 是 textarea 标签(这应该是只是一部分原因)
 2. ${} 和 *{} 的区别是什么？
+3. 为什么在 thymeleaf template 中可以直接获取对象的 private变量？
+4. 下划线转驼峰的问题是什么情况，为什么之前没有收到影响？
 
 
 ## Markdown的使用
