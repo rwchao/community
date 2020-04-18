@@ -12,11 +12,13 @@
 [H2](https://www.h2database.com/html/main.html)  
 [MyBatis](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)  
 [Spring Boot文档 database部分](https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/boot-features-sql.html#boot-features-embedded-database-support)  
-[Flyway](https://flywaydb.org/getstarted/firststeps/maven)  
+
 
 ## 工具
 Git  
-[Visual Paradigm](https://www.visual-paradigm.com/cn/download/community.jsp)
+[Visual Paradigm](https://www.visual-paradigm.com/cn/download/community.jsp)  
+[Flyway](https://flywaydb.org/getstarted/firststeps/maven)  
+[Lombok](https://projectlombok.org/) (需要下载IDEA插件，暂时不使用此工具)
  
 ## 脚本
 ```sql
