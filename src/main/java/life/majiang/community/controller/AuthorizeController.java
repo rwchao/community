@@ -5,6 +5,7 @@ import life.majiang.community.dto.GithubUser;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.User;
 import life.majiang.community.provider.GithubProvider;
+import life.majiang.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,20 +19,19 @@ import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
-    @Autowired
-    private GithubProvider githubProvider;
-
     @Value("${github.client.id}")
     private String clientId;
-
     @Value("${github.client.secret}")
     private String clientSecret;
-
     @Value("${github.redirect.uri}")
     private String redirectUri;
 
     @Autowired
+    private GithubProvider githubProvider;
+    @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -55,11 +55,10 @@ public class AuthorizeController {
             String token = UUID.randomUUID().toString();
             user.setToken(token);
             user.setName(githubUser.getName());
-            user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
+            user.setAccountId(String.valueOf(githubUser.getAccountId()));
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.insert(user);
+            userService.createOrUpdate(user);
+//            userMapper.insert(user);
             response.addCookie(new Cookie("token", token));
 //            request.getSession().setAttribute("user", githubUser);
             //如果只是return "index"的话，就不会把改变地址，只是加载index页面，redirect的话就地址也会改变
@@ -70,5 +69,15 @@ public class AuthorizeController {
             System.out.println("登录失败");
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }

@@ -53,6 +53,15 @@ p26 实现分页功能
 只修改html文件的时候需要build吗？如果修改（增减）了其 `script` tag呢？  
 A:应该是都需要build
 
+p31  
+- 注入的Mapper之所以会爆红，是因为IDEA没有关联Spring上下文
+![](.myLog_images/injection-redding.png)
+
+p32
+- session 和 cookie 的设置还是搞不清，为什么 `request对象` 有 `getSession()` 方法，
+为什么 `addCookie()` 是 `response对象`的？  
+（见`AuthorizeController.java`和`SessionInterceptor.java`文件）
+
 ## 暂时搁置
 p30中的源码分析
 
