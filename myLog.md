@@ -1,3 +1,4 @@
+## Bugs
 p7  
 - bootstrap本地css不成功，使用官方的<link>才能成功[已解决，引用路径错误]
 - 没有下拉效果  [已解决，是因为没有引入JQuery的原因]  
@@ -23,6 +24,9 @@ Q:因为 title 和 tag 都是 input标签 ，而 description 是 textarea 标签
 2. ${} 和 *{} 的区别是什么？
 3. 为什么在 thymeleaf template 中可以直接获取对象的 private变量？
 4. 下划线转驼峰的问题是什么情况，为什么之前没有收到影响？
+
+p26 实现分页功能  
+1. 为什么在Mysql中计数用 `count(1)` 而不是 `count(*)` ,它们的区别是什么？
 
 
 ## Markdown的使用
