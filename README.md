@@ -13,6 +13,8 @@
 [MyBatis](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)  
 [Spring Boot文档 database部分](https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/boot-features-sql.html#boot-features-embedded-database-support)  
 [Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
+[Spring MVC Interceptor Config](https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/web.html#mvc-config-interceptors)  
+[mvc handlermapping interceptor](https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor)
 
 
 ## 工具
