@@ -16,19 +16,21 @@ public class PaginationDTO {
     private List<Integer> pages = new ArrayList<>();
     private Integer totalPages;
 
-
     public void setPagination(Integer totalCount, Integer page, Integer size) {
         if (totalCount % size == 0) {
             totalPages= totalCount / size;
         } else {
             totalPages= totalCount / size + 1;
         }
-
-        if (page < 1) {
-            page = 1;
+        //解决totalpages=0时的显示错误问题
+        if(totalPages == 0){
+            totalPages = 1;
         }
 
-        if (page > totalPages) {
+        //修正page大于totalPages和小于1的情况，关于分页显示部分
+        if (page < 1) {
+            page = 1;
+        }else if (page > totalPages) {
             page = totalPages;
         }
 
