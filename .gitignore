@@ -4,6 +4,7 @@ target/
 !**/src/main/**
 !**/src/test/**
 myLog.md
+.mylog_images
 
 ### STS ###
 .apt_generated
