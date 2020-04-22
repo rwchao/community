@@ -23,6 +23,8 @@ Git
 [Visual Paradigm](https://www.visual-paradigm.com/cn/download/community.jsp)  
 [Flyway](https://flywaydb.org/getstarted/firststeps/maven)  
 [Lombok](https://projectlombok.org/) (需要下载IDEA插件，暂时不使用此工具)
+[Postman](https://chrome.google.com/webstore/detail/coohjcphdfgbiolnekdpbcijmhambjff)
+
  
 ## 脚本
 ```sql
@@ -40,4 +42,5 @@ create table USER
 ```
 ```bash
 mvn flyway:migrate
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```

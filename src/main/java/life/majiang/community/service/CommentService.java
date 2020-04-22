@@ -1,0 +1,47 @@
+package life.majiang.community.service;
+
+import life.majiang.community.enums.CommentTypeEnum;
+import life.majiang.community.exception.CustomizeErrorCode;
+import life.majiang.community.exception.CustomizeException;
+import life.majiang.community.mapper.CommentMapper;
+import life.majiang.community.mapper.QuestionMapper;
+import life.majiang.community.model.Comment;
+import life.majiang.community.model.Question;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CommentService {
+    @Autowired
+    private CommentMapper commentMapper;
+    @Autowired
+    private QuestionMapper questionMapper;
+
+    public void insert(Comment comment) {
+        if (comment.getParentId() == null || comment.getParentId() == 0) {
+            //已经进入了内层，所以通过异常把消息传递到controller层
+            throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
+        }
+
+        if (comment.getType() == null || !CommentTypeEnum.isExist(comment.getType())) {
+            throw new CustomizeException(CustomizeErrorCode.TYPE_PARAM_ERROR);
+        }
+
+        if (comment.getType() == CommentTypeEnum.COMMENT.getType()) {
+            //回复评论
+            Comment dbcomment =  commentMapper.selectById(comment.getParentId());
+            if (dbcomment == null) {
+                throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
+            }
+            commentMapper.insert(comment);
+        } else {
+            //回复问题
+            Question dbquestion = questionMapper.getById(comment.getParentId());
+            if (dbquestion == null) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+            commentMapper.insert(comment);
+            questionMapper.incCommentCount(comment.getParentId());
+        }
+    }
+}

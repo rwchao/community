@@ -5,4 +5,6 @@ package life.majiang.community.exception;
  */
 public interface ICustomizeErrorCode {
     String getMessage() ;
+    //p38:实现回复功能的异常处理
+    Integer getCode();
 }
