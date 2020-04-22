@@ -40,7 +40,7 @@ public class ProfileController {
             model.addAttribute("sectionName", "最新回复");
         }
 
-        Integer totalCount = questionMapper.countByuserId(user.getId());
+        Integer totalCount = questionMapper.countByUserId(user.getId());
         model.addAttribute("totalquestions",totalCount);
         PaginationDTO pagination = questionService.list(user.getId(), size, page);
         model.addAttribute("pagination",pagination);

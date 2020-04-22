@@ -15,14 +15,17 @@
 <div th:insert="~{navigation :: nav}"></div>
 <div class="container-fluid main profile">
     <div class="row">
+        <!--左栏-->
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+
+            <!--正文-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4><span th:text="${question.title}"></span></h4>
+                <h3 class="question-title"><span th:text="${question.title}"></span></h3>
                 <span class="text-desc">
                 作者：<span th:text="${question.user.name}"></span> |
                 发布时间：<span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd')}"></span> |
                 阅读数：<span th:text="${question.getViewCount()}"></span>
-            </span>
+                </span>
                 <hr>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
                 <br>
@@ -34,10 +37,38 @@
                         编辑
                     </a>
                 </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
-                <br>
                 <hr>
+            </div>
+
+            <!--回复-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>
+                    <span th:text="${question.commentCount}"></span> 个回复
+                </h4>
+                <!--循环展示问题回复-->
+                <div class="media comments" th:each="comment:${comments}" >
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-rounded" th:src="${comment.user.avatarUrl}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading">
+                            <span th:text="${comment.user.name}"></span>
+                        </h5>
+                        <div th:text="${comment.content}"></div>
+                        <div class="menu">
+                            <span class="glyphicon glyphicon-thumbs-up icon"></span>
+                            <span class="glyphicon glyphicon-comment icon"></span>
+                            <span class="pull-right" th:text="${#dates.format(comment.getGmtCreate(),'yyyy-MM-dd HH:mm')}"></span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <!--回复输入框-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
@@ -55,10 +86,12 @@
                 <button type="button" class="btn btn-success btn-comment" onclick="post()">回复</button>
             </div>
         </div>
+
+        <!--右栏-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-<!--            这里的栅格是相对上一级容器而言的，希望下面的两个容器始终充满其上一级容器，所以都是12-->
+            <!--这里的栅格是相对上一级容器而言的，希望下面的两个容器始终充满其上一级容器，所以都是12-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4>发起人</h4>
+                <h4 style="margin-top: 30px">发起人</h4>
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
@@ -69,6 +102,7 @@
                         <h5 class="media-heading">
                             <span th:text="${question.user.name}"></span>
                         </h5>
+                        <div>邮箱：2225241962@qq.com</div>
                     </div>
                     <hr>
                 </div>

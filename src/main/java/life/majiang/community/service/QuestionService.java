@@ -52,7 +52,7 @@ public class QuestionService {
 
     public PaginationDTO list(Long userId, Integer size, Integer page) {
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = questionMapper.countByuserId(userId);
+        Integer totalCount = questionMapper.countByUserId(userId);
 
         paginationDTO.setPagination(totalCount,page, size);
 
