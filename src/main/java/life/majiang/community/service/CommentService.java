@@ -1,7 +1,6 @@
 package life.majiang.community.service;
 
 import life.majiang.community.dto.CommentDTO;
-import life.majiang.community.dto.QuestionDTO;
 import life.majiang.community.enums.CommentTypeEnum;
 import life.majiang.community.exception.CustomizeErrorCode;
 import life.majiang.community.exception.CustomizeException;
@@ -57,9 +56,9 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> listByQuestionId(Long id) {
+    public List<CommentDTO> listByParentId(Long id, CommentTypeEnum typeEnum) {
         List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
-        List<Comment> commentList = commentMapper.listByQuestionId(id);
+        List<Comment> commentList = commentMapper.listByParentId(id, typeEnum.getType());
         for (Comment comment : commentList) {
             User user = userMapper.findById(comment.getCommentator());
             CommentDTO commentDTO = new CommentDTO();
