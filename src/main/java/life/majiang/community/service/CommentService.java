@@ -45,6 +45,7 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            commentMapper.incCommentCount(comment.getParentId());
         } else {
             //回复问题
             Question dbquestion = questionMapper.getById(comment.getParentId());

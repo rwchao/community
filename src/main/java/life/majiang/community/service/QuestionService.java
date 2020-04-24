@@ -8,12 +8,15 @@ import life.majiang.community.mapper.QuestionMapper;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.Question;
 import life.majiang.community.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -109,5 +112,15 @@ public class QuestionService {
 
     public void incView(Long id) {
         questionMapper.updateViewCount(id);
+    }
+
+    public List<Question> selectRelated(QuestionDTO questionDTO) {
+        if (StringUtils.isBlank(questionDTO.getTag())){
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(questionDTO.getTag(), ',');
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        List<Question> questionList = questionMapper.selectRelated(questionDTO.getId(),regexpTag);
+        return questionList;
     }
 }
