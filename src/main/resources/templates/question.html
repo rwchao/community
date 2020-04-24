@@ -21,21 +21,26 @@
 
             <!--正文-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!--标题-->
                 <h3 class="question-title"><span th:text="${question.title}"></span></h3>
+                <!--问题信息-->
                 <span class="text-desc">
                     作者：<span th:text="${question.user.name}"></span> |
                     发布时间：<span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd')}"></span> |
                     阅读数：<span th:text="${question.getViewCount()}"></span>
                 </span>
                 <hr>
+                <!--问题描述-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
                 <br>
                 <hr style="margin-bottom: 7px">
+                <!--tags标签-->
                 <div class="label label-info question-tag" th:each="tag : ${question.tag.split(',')}"
-                     style="margin: 0 3px;font-size: 14px">
+                     style="margin: 0 3px;font-size: 13px">
                     <span class="glyphicon glyphicon-tags"></span>
-                    <span class="label label-info" style="font-size: 12px" th:text="${tag}"></span>
+                    <span style="font-size: 14px" th:text="${tag}"></span>
                 </div>
+                <!--编辑按钮-->
                 <div style="margin: 10px">
                     <a th:href="@{'/publish/' + ${question.id}}" class="community-menu"
                        th:if="${session.user != null && session.user.id == question.creator}">
@@ -113,6 +118,7 @@
         <!--右栏-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <!--这里的栅格是相对上一级容器而言的，希望下面的两个容器始终充满其上一级容器，所以都是12-->
+            <!--发起人-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4 style="margin-top: 30px">发起人</h4>
                 <div class="media">
@@ -130,15 +136,17 @@
                     <hr>
                 </div>
             </div>
+            <!--二维码-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>扫码添加好友</h4>
                 <img class="img-thumbnail" src="/img/wechat.png" width="200"  height="200" style="margin: 10px;">
                 <hr>
             </div>
+            <!--相关问题-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>相关问题</h4>
-                <ul style="list-style: none;padding: 15px 0">
-                    <li th:each="related :${questionRelated}" style="line-height: 30px">
+                <ul style="list-style: none;padding: 5px 0">
+                    <li th:each="related :${questionRelated}" style="line-height: 25px">
                         <a th:href="@{'/question/'+${related.id}}" th:text="${related.title}"></a>
                     </li>
                 </ul>

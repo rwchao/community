@@ -84,3 +84,9 @@ body {
 .question-title{
     margin-top: 30px;
 }
+
+.publish-tag-tab .label-info{
+    white-space: normal;
+    display: inline-block;
+    margin: 4px;
+}
