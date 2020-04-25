@@ -74,6 +74,10 @@ public class CommentService {
     }
 
     private void createNotification(Comment comment, Long receiver, NotificationTypeEnum type, Long question) {
+        /*先判断评论人是不是自己本人*/
+        if(receiver == comment.getCommentator()){
+            return;
+        }
         Notification notification = new Notification();
         notification.setNotifierId(comment.getCommentator());
         notification.setReceiverId(receiver);
