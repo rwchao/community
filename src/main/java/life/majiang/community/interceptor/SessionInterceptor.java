@@ -1,5 +1,6 @@
 package life.majiang.community.interceptor;
 
+import life.majiang.community.mapper.NotificationMapper;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 public class SessionInterceptor implements HandlerInterceptor {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -26,6 +29,9 @@ public class SessionInterceptor implements HandlerInterceptor {
                     User user = userMapper.findByToken(token);
                     if(user != null){
                         request.getSession().setAttribute("user", user);
+                        /*获取通知数量*/
+                        Integer notificationUnread = notificationMapper.countUnreadByuserId(user.getId());
+                        request.getSession().setAttribute("notificationUnread", notificationUnread );
                     }
                     break;
                 }

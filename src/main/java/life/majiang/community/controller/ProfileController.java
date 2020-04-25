@@ -55,9 +55,6 @@ public class ProfileController {
         /*获取我的问题的数量*/
         Integer questionCount = questionMapper.countByUserId(user.getId());
         model.addAttribute("questionCount",questionCount);
-        /*获取通知数量*/
-        Integer notificationCount = notificationMapper.countUnreadByuserId(user.getId());
-        model.addAttribute("notificationCount",notificationCount);
 
         return "profile";
     }

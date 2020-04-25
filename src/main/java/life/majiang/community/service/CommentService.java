@@ -87,7 +87,7 @@ public class CommentService {
             notification.setCommentId(null);
         }
         notificationMapper.insert(notification);
-
+        /*增加用户的通知数*/
     }
 
     public List<CommentDTO> listByParentId(Long id, CommentTypeEnum typeEnum) {
