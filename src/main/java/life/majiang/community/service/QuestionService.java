@@ -25,9 +25,18 @@ public class QuestionService {
     @Autowired
     UserMapper userMapper;
 
-    public PaginationDTO<QuestionDTO> list(Integer page, Integer size) {
+    /*search支持title和tag的相关性*/
+    public PaginationDTO<QuestionDTO> list(String search, Integer page, Integer size) {
         PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
-        Integer totalCount = questionMapper.count();
+
+        if (search != null) {
+            String[] keyWords = StringUtils.split(search, ' ');
+            search = Arrays.stream(keyWords).collect(Collectors.joining("|"));
+        }else {
+            search="";
+        }
+
+        Integer totalCount = questionMapper.count(search);
 
         paginationDTO.setPagination(totalCount,page, size);
 
@@ -40,7 +49,7 @@ public class QuestionService {
 
         Integer offset = size * (page - 1);
         List<QuestionDTO> questionDTOList = new ArrayList<QuestionDTO>();
-        List<Question> questionList = questionMapper.list(offset,size);
+        List<Question> questionList = questionMapper.list(search,offset,size);
         for (Question question : questionList) {
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -114,6 +123,11 @@ public class QuestionService {
         questionMapper.updateViewCount(id);
     }
 
+    /**
+     * 搜索相关问题展示在右栏
+     * @param questionDTO
+     * @return
+     */
     public List<Question> selectRelated(QuestionDTO questionDTO) {
         if (StringUtils.isBlank(questionDTO.getTag())){
             return new ArrayList<>();
