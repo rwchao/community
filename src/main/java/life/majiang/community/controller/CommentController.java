@@ -44,6 +44,11 @@ public class CommentController {
         return ResultDTO.okOf();
     }
 
+    /**
+     * 展开二级评论
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
     public ResultDTO<List> comments(@PathVariable(name = "id") Long id){

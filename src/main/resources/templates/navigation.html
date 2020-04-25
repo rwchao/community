@@ -7,7 +7,6 @@
 <div th:fragment="nav">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
                         aria-expanded="false">
@@ -15,8 +14,6 @@
                 </button>
                 <a class="navbar-brand" href="/">码匠社区</a>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
@@ -24,9 +21,14 @@
                     </div>
                     <button type="submit" class="btn btn-default">搜索</button>
                 </form>
+                <!--右侧信息-->
                 <ul class="nav navbar-nav navbar-right">
+                    <!--已登录的状态-->
                     <li th:if="${session.user!=null}">
                         <a href="/publish">提问</a>
+                    </li>
+                    <li>
+                        <a href="/profile/replies">通知 <span class="badge">42</span></a>
                     </li>
                     <li class="dropdown" th:if="${session.user != null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -37,6 +39,7 @@
                             <li><a href="/logout">退出登录</a></li>
                         </ul>
                     </li>
+                    <!--未登录的状态-->
                     <li th:if="${session.user == null}">
                         <a href="https://github.com/login/oauth/authorize?client_id=8ce9fb87a359b3370803&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>
                     </li>

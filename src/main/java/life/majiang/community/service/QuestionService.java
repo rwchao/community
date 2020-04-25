@@ -25,8 +25,8 @@ public class QuestionService {
     @Autowired
     UserMapper userMapper;
 
-    public PaginationDTO list(Integer page, Integer size) {
-        PaginationDTO paginationDTO = new PaginationDTO();
+    public PaginationDTO<QuestionDTO> list(Integer page, Integer size) {
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         Integer totalCount = questionMapper.count();
 
         paginationDTO.setPagination(totalCount,page, size);
@@ -49,12 +49,12 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
 
-        paginationDTO.setQuestionList(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 
-    public PaginationDTO list(Long userId, Integer size, Integer page) {
-        PaginationDTO paginationDTO = new PaginationDTO();
+    public PaginationDTO<QuestionDTO> list(Long userId, Integer size, Integer page) {
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
         Integer totalCount = questionMapper.countByUserId(userId);
 
         paginationDTO.setPagination(totalCount,page, size);
@@ -77,7 +77,7 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
 
-        paginationDTO.setQuestionList(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 
